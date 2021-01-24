@@ -99,7 +99,10 @@ class P2pproxy(object):
                     if param_group and not group_id in param_group.split(','): continue # filter channels by &group=1,2,5...
 
                     name = channel.getAttribute('name')
-                    group = TorrentTvApi.CATEGORIES[int(group_id)]
+                    try:
+                        group = TorrentTvApi.CATEGORIES[int(group_id)]
+                    except KeyError:
+                        group = 'Unknown category ' + str(group_id)
                     cid = channel.getAttribute('id')
                     logo = channel.getAttribute('logo')
                     if logo != '' and config.fullpathlogo: logo = config.logobase + logo
